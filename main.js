@@ -4,6 +4,7 @@ let sliderVertices;
 let sliderTreshold;
 let VERTICES = 2500;
 let EDGE_TRESHOLD = 30;
+let BLUR = 1;
 
 function initImage() {
     document.getElementById("inputForm").style.display = "none";
@@ -29,11 +30,16 @@ function init() {
     sliderVertices.parent('sliderVerticesSpan');
     sliderVertices.name = "sliderVertices";
     sliderVertices.changed(magic);
+
     sliderTreshold = createSlider(0, 254, 80);
     sliderTreshold.parent('sliderTresholdSpan');
     sliderTreshold.name = "sliderTreshold";
     sliderTreshold.changed(magic);
 
+    sliderBlur = createSlider(0, 15, 1);
+    sliderBlur.parent('sliderBlurSpan');
+    sliderBlur.name = "sliderBlur";
+    sliderBlur.changed(magic);
 
     magic();
 }
@@ -48,11 +54,15 @@ function setup() {
 function magic() {
     VERTICES = sliderVertices.value();
     EDGE_TRESHOLD = sliderTreshold.value();
+    BLUR = sliderBlur.value();
 
     img.loadPixels();
     copy.loadPixels();
 
     preprocess();
+    copy.updatePixels();
+    image(copy, 0, 0);
+    /*
     sobel();
 
     copy.updatePixels();
@@ -60,6 +70,7 @@ function magic() {
     image(img, 0, 0);
     img.loadPixels();
     generateMesh();
+    */
 }
 
 function downloadCanvas() {
