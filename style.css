@@ -1,0 +1,84 @@
+body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    overflow-y: hidden;
+}
+
+#sidebar {
+    display:none;
+    z-index: 10;
+    position:fixed;
+    top: 0px;
+    right: 0px;
+
+    text-align: center;    
+    padding: 20px 10px 25px 15px;
+    color: white;
+    background-color: #1e2223;
+    height: 100%;
+    font-weight: bold;
+}
+
+#downloadButtonContainer {
+    position: absolute;
+    bottom: 100px;
+    left: 0px;
+    width: 100%;
+    text-align: center;
+    align-content: center;
+}
+
+#downloadButton {  
+    font-weight: bold;
+    background-color: #5cb85c;
+    border: 2px solid #4cae4c;
+    border-radius: 5px;
+    padding: 6px 12px;
+    color: white;
+    vertical-align: middle;
+    cursor: pointer;
+    width: 75%;
+}
+
+#downloadButton:hover {
+    background-color: #449d44;
+    border-color: #398439;
+}
+
+#imageInput {
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+#imageInput + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    display: inline-block;
+    cursor: pointer;
+}
+
+#inputForm {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+#labelImage {
+    padding: 0.625rem 1.25rem;
+    width: 90%;
+    display:inline-block;
+    max-width: 400px;
+    color: #f1e5e6;
+    background-color: #d3394c;
+}
