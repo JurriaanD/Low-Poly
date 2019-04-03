@@ -1,6 +1,8 @@
 function polyClickListener() {
     if (mouseX > width || mouseY > height) return;
     boundary.push([mouseX, mouseY]);
+    boundary.xs.push(mouseX);
+    boundary.ys.push(mouseY);
     const nbPoints = boundary.length;
 
     noFill();
@@ -18,6 +20,8 @@ function startPolySelection() {
     button.onclick = endPolySelection;
     button.innerHTML = "Finish boundary";
     boundary = []
+    boundary.xs = [];
+    boundary.ys = [];
     mouseClicked = polyClickListener;
     image(img, 0, 0);
 }
@@ -28,13 +32,8 @@ function endPolySelection() {
     button.innerHTML = "Select boundary";
     mouseClicked = () => null;
 
-    // Convert our list of points to a list of x-coordinates and a list of y-coordinates
-    let xs = []; let ys = [];
-    for (let point of boundary) {
-        xs.push(point[0]); ys.push(point[1]);
-    }
-    xs.push(xs[0]); ys.push(ys[0]);
-    boundary.xs = xs; boundary.ys = ys;
+    boundary.xs.push(boundary.xs[0]);
+    boundary.ys.push(boundary.ys[0]);
 
     alert("Your boundary will be used until you select a new one, or refresh the page.");
     magic();
