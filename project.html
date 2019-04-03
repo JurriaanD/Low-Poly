@@ -8,20 +8,22 @@
     <script src="sobel.js"></script>
     <script src="mesh.js"></script>
     <script src="main.js"></script>
+    <script src="polySelection.js"></script>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
       <form id="inputForm">
           <label for="imageInput" id="labelImage">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg>
-              Upload afbeelding (.jpg of .png)</label>
+              Upload image (.jpg or .png)</label>
           <input type="file" id="imageInput" name="imageInput" accept=".jpg,.jpeg,.png" onchange="initImage()"><br>
       </form>
 
       <div id="sidebar">
           <div class="container"><label for="sliderTreshold">TRESHOLD<br> </label><span id="sliderTresholdSpan"></span></div> <br>
           <div class="container"><label for="sliderVertices">DRIEHOEKJES<br> </label><span id="sliderVerticesSpan"></span></div> <br>
-          <div class="container"><label for="sliderBlur">BLUR<br> </label><span id="sliderBlurSpan"></span></div> <br>
+          <div class="container"><span id="checkboxMono"></span></div> <br>
+          <div class="container"><button id="buttonBoundary" onclick="startPolySelection()">Select boundary</button></div> <br>
           <div id="downloadButtonContainer"><button id="downloadButton" onclick="downloadCanvas()">Download</button></div>         
       </div>     
   </body>

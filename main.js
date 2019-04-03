@@ -2,13 +2,15 @@ let img;
 let copy;
 let sliderVertices;
 let sliderTreshold;
+let checkboxMono;
 let VERTICES = 2500;
 let EDGE_TRESHOLD = 30;
-let BLUR = 1;
+let doColor = false;
+let boundary = null;
 
 function initImage() {
     document.getElementById("inputForm").style.display = "none";
-    img = loadImage(URL.createObjectURL(document.getElementById("imageInput").files[0]), init, () => alert("Error bij het uploaden. Enkel .jp(e)g en .png zijn toegelaten."));
+    img = loadImage(URL.createObjectURL(document.getElementById("imageInput").files[0]), init, () => alert("Error while uploading. Only .jp(e)g and .png files are allowed."));
 }
 
 function init() {
@@ -23,23 +25,21 @@ function init() {
     img.loadPixels();
     copy = copyImage(img, copy);
     resizeCanvas(img.width, img.height);
-    document.getElementById("sidebar").style.display = "block";
 
     // Create control panel
+    document.getElementById("sidebar").style.display = "block";
     sliderVertices = createSlider(100, 3500, 2000);
     sliderVertices.parent('sliderVerticesSpan');
     sliderVertices.name = "sliderVertices";
     sliderVertices.changed(magic);
-
     sliderTreshold = createSlider(0, 254, 80);
     sliderTreshold.parent('sliderTresholdSpan');
     sliderTreshold.name = "sliderTreshold";
     sliderTreshold.changed(magic);
-
-    sliderBlur = createSlider(0, 15, 1);
-    sliderBlur.parent('sliderBlurSpan');
-    sliderBlur.name = "sliderBlur";
-    sliderBlur.changed(magic);
+    checkboxMono = createCheckbox('Keep color');
+    checkboxMono.parent('checkboxMono');
+    checkboxMono.name = "checkboxMono";
+    checkboxMono.changed(magic);
 
     magic();
 }
@@ -54,23 +54,25 @@ function setup() {
 function magic() {
     VERTICES = sliderVertices.value();
     EDGE_TRESHOLD = sliderTreshold.value();
-    BLUR = sliderBlur.value();
+    doColor = checkboxMono.checked();
+
+    strokeWeight(1);
 
     img.loadPixels();
     copy.loadPixels();
 
     preprocess();
-    copy.updatePixels();
-    image(copy, 0, 0);
-    /*
     sobel();
 
     copy.updatePixels();
-    img.updatePixels();
-    image(img, 0, 0);
-    img.loadPixels();
+    if (doColor) {
+        img.updatePixels();
+        image(img, 0, 0);
+        img.loadPixels();
+    } else {
+        background(52);
+    }
     generateMesh();
-    */
 }
 
 function downloadCanvas() {

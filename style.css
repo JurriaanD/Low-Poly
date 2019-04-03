@@ -29,7 +29,7 @@ body {
     align-content: center;
 }
 
-#downloadButton {  
+button {  
     font-weight: bold;
     background-color: #5cb85c;
     border: 2px solid #4cae4c;
@@ -38,10 +38,12 @@ body {
     color: white;
     vertical-align: middle;
     cursor: pointer;
+}
+#downloadButton {
     width: 75%;
 }
 
-#downloadButton:hover {
+button:hover {
     background-color: #449d44;
     border-color: #398439;
 }
