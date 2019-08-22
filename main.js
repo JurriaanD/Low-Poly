@@ -61,7 +61,7 @@ function magic() {
     img.loadPixels();
     copy.loadPixels();
 
-    preprocess();
+    toGrayscale(img, copy);
     sobel();
 
     copy.updatePixels();

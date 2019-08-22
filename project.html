@@ -1,10 +1,11 @@
 <html>
   <head>
+    <meta charset="UTF-8"> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
-    <script src="delaunay/delaunay.js"></script>
+    <script src="https://unpkg.com/delaunator@4.0.0/delaunator.min.js"></script>
     <script src="util.js"></script>
-    <script src="preprocessing.js"></script>
+    <script src="grayscale.js"></script>
     <script src="sobel.js"></script>
     <script src="mesh.js"></script>
     <script src="main.js"></script>
@@ -20,8 +21,8 @@
       </form>
 
       <div id="sidebar">
-          <div class="container"><label for="sliderTreshold">TRESHOLD<br> </label><span id="sliderTresholdSpan"></span></div> <br>
-          <div class="container"><label for="sliderVertices">DRIEHOEKJES<br> </label><span id="sliderVerticesSpan"></span></div> <br>
+          <div class="container"><label for="sliderTreshold">CONTRAST TRESHOLD<br> </label><span id="sliderTresholdSpan"></span></div> <br>
+          <div class="container"><label for="sliderVertices">#TRIANGLES<br> </label><span id="sliderVerticesSpan"></span></div> <br>
           <div class="container"><span id="checkboxMono"></span></div> <br>
           <div class="container"><button id="buttonBoundary" onclick="startPolySelection()">Select boundary</button></div> <br>
           <div id="downloadButtonContainer"><button id="downloadButton" onclick="downloadCanvas()">Download</button></div>         

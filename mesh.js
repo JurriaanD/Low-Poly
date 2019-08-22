@@ -4,7 +4,9 @@ const MIN_ANGLE = 0.1;
 
 function generateMesh() {
     let candidates = getCandidates();
+    startTime = Date.now();
     let chosenOnes = getChosenOnes(candidates);
+    startTime = Date.now();
     doColor ? showColorMesh(chosenOnes) : showMonoMesh(chosenOnes);
 }
 
@@ -27,15 +29,12 @@ function getCandidates() {
 
 function getChosenOnes(candidates) {
     if (candidates.length < VERTICES) return candidates;
-    let chosen = [];
-    for (let i = 0; i < VERTICES; i++) {
-        chosen.push(candidates.splice(Math.floor(Math.random() * candidates.length), 1)[0]);
-    }
-    return chosen;
+    let chosen = candidates.sort(() => 0.5 - Math.random());
+    return chosen.slice(0, VERTICES);
 }
 
 function showColorMesh(vertices) {
-    let triangles = Delaunay.triangulate(vertices);
+    let triangles = Delaunator.from(vertices).triangles;
     triangles = filterUglyTriangles(triangles, vertices);
     noStroke();
     for (let i = 0; i < triangles.length; i += 3) {
@@ -54,7 +53,7 @@ function showColorMesh(vertices) {
 }
 
 function showMonoMesh(vertices) {
-    let triangles = Delaunay.triangulate(vertices);
+    let triangles = Delaunator.from(vertices).triangles;
     triangles = filterUglyTriangles(triangles, vertices);
     stroke(255, 100);
     noFill();
@@ -83,49 +82,6 @@ function filterUglyTriangles(triangles, vertices) {
     }
 
     return result;
-    
-    
-    /*
-    let cumLength = 0;
-
-    for (let i = 0; i < triangles.length; i += 3) {
-        cumLength += getCircumference(vertices[triangles[i]], vertices[triangles[i+1]], vertices[triangles[i+2]]);
-    }
-
-    
-    let avg = cumLength / triangles.length;
-    let result = [];
-    for (let i = 0; i < triangles.length; i += 3) {
-        if (getCircumference(vertices[triangles[i]], vertices[triangles[i+1]], vertices[triangles[i+2]]) < avg * AVG_FILTER_CUTOFF) {
-            result.push(triangles[i]);
-            result.push(triangles[i+1]);
-            result.push(triangles[i+2]);
-        }
-    }
-    return result;
-    
-    
-    let lengths = new Array(triangles.length/3);
-
-    for (let i = 0; i < lengths.length; i++) {
-        lengths[i] = getCircumference(vertices[triangles[3*i]], vertices[triangles[3*i+1]], vertices[triangles[3*i+2]]);
-    }
-
-    lengths.sort();
-    const maxIdx = Math.floor(0.99 * lengths.length);
-    const maxVal = lengths[maxIdx];
-
-    let result = [];
-    for (let i = 0; i < triangles.length; i += 3) {
-        const circ = getCircumference(vertices[triangles[i]], vertices[triangles[i+1]], vertices[triangles[i+2]]);
-        if (MIN_CIRC < circ && circ < maxVal) {
-            result.push(triangles[i]);
-            result.push(triangles[i+1]);
-            result.push(triangles[i+2]);
-        }
-    }
-    return result;
-    */
 }
 
 function getCircumference(v1, v2, v3) {
