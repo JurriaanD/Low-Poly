@@ -14,21 +14,9 @@ function initImage() {
 }
 
 function init() {
-    // Make sure the image fits in the viewport without overflow
-    if (img.width > window.innerWidth) {
-        img.resize(window.innerWidth, 0);
-    }
-    if (img.height > window.innerHeight) {
-        img.resize(0, window.innerHeight);
-    }
-
-    img.loadPixels();
-    copy = copyImage(img, copy);
-    resizeCanvas(img.width, img.height);
-
     // Create control panel
     document.getElementById("sidebar").style.display = "block";
-    sliderVertices = createSlider(100, 3500, 2000);
+    sliderVertices = createSlider(100, 4500, 2000);
     sliderVertices.parent('sliderVerticesSpan');
     sliderVertices.name = "sliderVertices";
     sliderVertices.changed(magic);
@@ -40,6 +28,19 @@ function init() {
     checkboxMono.parent('checkboxMono');
     checkboxMono.name = "checkboxMono";
     checkboxMono.changed(magic);
+
+    // Make sure the image fits in the viewport without overflow
+    let maxWidth = window.innerWidth - document.getElementById("sidebar").offsetWidth;
+    if (img.width > maxWidth) {
+        img.resize(maxWidth, 0);
+    }
+    if (img.height > window.innerHeight) {
+        img.resize(0, window.innerHeight);
+    }
+
+    img.loadPixels();
+    copy = copyImage(img, copy);
+    resizeCanvas(img.width, img.height);
 
     magic();
 }
